@@ -1,0 +1,22 @@
+class Solution {
+
+    static boolean findsum(int arr[]) {
+        
+        int n=arr.length;
+        
+        if(arr[0]==0)
+        return true;
+        
+        for(int i=0;i<n;i++){
+            int sum=arr[i];
+            for(int j=i+1;j<n;j++){
+                if(arr[j]==0)
+                return true;
+                sum+=arr[j];
+                if(sum==0)
+                return true;
+            }
+        }
+        return false;
+    }
+}
