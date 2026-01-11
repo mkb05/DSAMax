@@ -1,0 +1,34 @@
+// User function Template for Java
+
+class Solution {
+    public static ArrayList<ArrayList<Integer>> getPairs(int[] arr) {
+        
+        ArrayList<ArrayList<Integer>> list=new ArrayList<>();
+        int n=arr.length;
+        
+        Arrays.sort(arr);
+        int left=0,right=n-1;
+        
+        while(left<right){
+            int sum=arr[left]+arr[right];
+            
+            if(sum==0){
+                ArrayList<Integer>pair=new ArrayList<>();
+                pair.add(arr[left]);
+                pair.add(arr[right]);
+                list.add(pair);
+                
+                int lval=arr[left];
+                int rval=arr[right];
+                
+                while(left<right && arr[left]==lval) left++;
+                while(left<right && arr[right]==rval) right--;
+            }else if( sum<0){
+                left++;
+            }else{
+                right--;
+            }
+        }
+        return list;
+    }
+}
