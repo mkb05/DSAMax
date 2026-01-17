@@ -1,0 +1,16 @@
+class Solution {
+    // Function to remove duplicates from the given array.
+    ArrayList<Integer> removeDuplicates(int[] arr) {
+        // code here
+        int n=arr.length;
+        
+        Set<Integer> set=new HashSet<>();
+        
+       for(int i=0;i<n;i++){
+          set.add(arr[i]);
+       }
+       ArrayList<Integer>list=new ArrayList<>(set);
+       Collections.sort(list);
+       return list;
+    }
+}
