@@ -1,0 +1,58 @@
+Algrothim
+
+
+1) Build adjacency list from edge list
+2) Try each vertex sequentially (0 to V-1)
+3) For each vertex, try colors 1 to m
+4) Check if color is safe (no adjacent vertex has same color)
+5) Recurse to next vertex if safe
+6) Backtrack if no solution found
+
+
+
+
+
+class Solution {
+    boolean graphColoring(int v, int[][] edges, int m) {
+        // code here
+        List<List<Integer>> graph=new ArrayList<>();
+        
+        for(int i=0;i<v;i++)
+        graph.add(new ArrayList<>());
+        
+        for(int[] edge:edges){
+            int x=edge[0];
+            int y=edge[1];
+            graph.get(x).add(y);
+            graph.get(y).add(x);
+        }
+        int colors[]=new int[v];
+        
+       return solve(0,v,m,colors,graph);
+    }
+    
+    boolean solve(int vertex,int v,int m,int[] colors,List<List<Integer>> graph){
+        if(vertex==v)
+        return true;
+        
+        for(int color=1;color<=m;color++){
+            if(isSafeColor(vertex,color,colors,graph)){
+                colors[vertex]=color;
+                
+                if(solve(vertex+1,v,m,colors,graph))
+                return true;
+            }
+            colors[vertex]=0;
+        }
+        return false;
+    }
+    
+    boolean isSafeColor(int vertex,int color,int[] colors,List<List<Integer>> graph){
+        for(int neighbour:graph.get(vertex)){
+            if(colors[neighbour]==color)
+            return false;
+        }
+        return true;
+    }
+    
+}
