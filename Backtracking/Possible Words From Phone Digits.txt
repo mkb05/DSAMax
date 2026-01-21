@@ -1,0 +1,48 @@
+class Solution {
+    
+     static String[] keypad = {
+        "",     
+        "",     
+        "abc",  
+        "def",  
+        "ghi",  
+        "jkl",  
+        "mno",  
+        "pqrs", 
+        "tuv",  
+        "wxyz"  
+    };
+    
+    public ArrayList<String> possibleWords(int[] arr) {
+        // code here
+        int n=arr.length;
+        ArrayList<String>result=new ArrayList<>();
+        backtrack(arr,n,0,new StringBuilder(),result);
+        
+        return result;
+    }
+    
+    static void backtrack(int[] arr,int n,int idx,StringBuilder path,ArrayList<String> result){
+        if(idx==n){
+            result.add(path.toString());
+            return;
+        }
+        
+        String letters=keypad[arr[idx]];
+        
+           if (letters.length() == 0) {
+            backtrack(arr, n, idx + 1, path, result);
+            return;
+            }
+        
+        
+        for(int i=0;i<letters.length();i++){
+            path.append(letters.charAt(i));
+            
+            backtrack(arr,n,idx+1,path,result);
+            
+            path.deleteCharAt(path.length()-1);
+        }
+        
+    }
+}
