@@ -1,0 +1,47 @@
+
+**Pure backtracking approach does not work for very large number,instead we can use backtrack+memoization
+
+
+
+
+class Solution {
+    Integer dp[][][];
+    public int numberOfPath(int[][] mat, int k) {
+        // code here
+         
+         dp=new Integer[mat.length][mat[0].length][k+1];
+         return backtrack(mat,0,0,0,k);
+    }
+    
+    public int backtrack(int[][]mat,int i,int j,int currSum,int k){
+       if((i>=mat.length || j>= mat[0].length)){
+           return 0;
+       }
+       
+       currSum+=mat[i][j];
+       
+       if(currSum > k){
+           return 0;
+       }
+        
+       if(i==mat.length-1 && j==mat[0].length-1){
+           return currSum==k?1:0;
+       }
+       
+       if(dp[i][j][currSum]!=null){
+           return dp[i][j][currSum];
+       }
+        
+        
+        
+        int down=backtrack(mat,i+1,j,currSum,k);
+        
+        int right=backtrack(mat,i,j+1,currSum,k);
+        
+        dp[i][j][currSum]=down+right;
+        
+        return dp[i][j][currSum];
+        
+        
+    }
+}
