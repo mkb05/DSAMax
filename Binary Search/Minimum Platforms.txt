@@ -1,0 +1,35 @@
+class Solution {
+    public int minPlatform(int arr[], int dep[]) {
+        //  code here
+        int n=arr.length;
+      
+        int count=0;
+        
+        
+        Arrays.sort(arr);
+        Arrays.sort(dep);
+        
+        if (arr.length == 0 || dep.length == 0) {
+            return 0;
+        }
+        
+        
+        for(int i=0;i<n;i++){
+            int arrv=arr[i];
+            
+           int low=0,high=n-1;
+           while(low<=high){
+               int mid=low+(high-low)/2;
+               if(dep[mid]<arrv){
+                   low=mid+1;
+               }else{
+                   high=mid-1;
+               }
+           }
+           int dcount=(i+1)-low;
+            
+           count=Math.max(count,dcount);
+        }
+        return count;
+    }
+}
