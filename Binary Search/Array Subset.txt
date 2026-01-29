@@ -1,0 +1,52 @@
+
+class Solution {
+    public boolean isSubset(int a[], int b[]) {
+        int m = a.length;
+        int n = b.length;
+
+        if (n > m) return false;
+
+        Arrays.sort(a);
+        Arrays.sort(b);
+
+        boolean[] used = new boolean[m];
+
+        for (int i = 0; i < n; i++) {
+            int idx = findUnused(a, used, b[i]);
+            if (idx == -1) {
+                return false;
+            }
+            used[idx] = true; 
+        }
+        return true;
+    }
+
+    private int findUnused(int[] a, boolean[] used, int target) {
+        int low = 0, high = a.length - 1;
+        int pos = -1;
+
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (a[mid] == target) {
+                pos = mid;
+                high = mid - 1;
+            } else if (a[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        if (pos == -1) return -1;
+
+     
+        while (pos < a.length && a[pos] == target) {
+            if (!used[pos]) return pos;
+            pos++;
+        }
+
+        return -1;
+    }
+    
+}
