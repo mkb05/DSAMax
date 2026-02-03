@@ -1,0 +1,32 @@
+class Solution {
+    public int reverseExponentiation(int n) {
+        // code here
+        int rev=reverse(n);
+        
+        return power(n,rev);
+    }
+    
+    public int reverse(int n){
+        int rev=0;
+        
+        while(n>0){
+            rev=rev *10 + (n%10);
+            n=n/10;
+        }
+        return rev;
+    }
+    
+    public int power(int n,int exp){
+        
+        if(exp==0)
+        return 1;
+        
+        int half=power(n,exp/2);
+        
+        if(exp%2 == 0){
+            return half*half;
+        }else{
+            return n * half * half;
+        }
+    }
+}
